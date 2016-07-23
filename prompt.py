@@ -18,19 +18,23 @@ cli_style = style_from_dict({
 
 cli_completer = WordCompleter([
     'revert commitid -m [parent number:0,1]',
-	'remote -v',
-	'remote add branchname repopath',
+    'remote -v',
+    'remote add branchname repopath',
+    'remote set-url branchname repopath',
     'format-patch commit-id --stdout >file.patch',
     'status',
-	'stash -p',
-	'checkout -p commitid',
-	'checkout branchname filepath',
-	'commit --amend',
-	'rebase -i HEAD~4',
+    'stash -p',
+    'checkout -p commitid',
+    'checkout branchname filepath',
+    'commit --amend',
+    'rebase -i HEAD~4',
+    'rebase -i --root',
+    "filter-branch --env-filter 'GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE; export GIT_COMMITTER_DATE",
     "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset) %C(bold green)%ar%C(reset)'"
 ], meta_dict={
     'remote -v': 'check remote url',
     'rebase -i HEAD~4': 'interative last 4',
+    'remote set-url branchname repopath':'remote set-url origin https://github.com/REPOSITORY.git'
 },ignore_case=True)
 
 
