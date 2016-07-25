@@ -23,12 +23,13 @@ cli_completer = WordCompleter([
     'remote set-url branchname repopath',
     'format-patch commit-id --stdout >file.patch',
     'status',
-    'stash -p',
+    'stash save -p message',
     'checkout -p commitid',
     'checkout branchname filepath',
     'commit --amend',
     'rebase -i HEAD~4',
     'rebase -i --root',
+    'cherry-pick commitid',
     "filter-branch --env-filter 'GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE; export GIT_COMMITTER_DATE",
     "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset) %C(bold green)%ar%C(reset)'"
 ], meta_dict={
