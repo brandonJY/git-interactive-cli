@@ -41,14 +41,21 @@ cli_completer = WordCompleter([
 
 def main():
 	home = expanduser("~")
-	our_history = FileHistory(home+'/.git-inter-cli-history')
+	git_history = FileHistory(home+'/.git-inter-cli-history')
 	try:
 		while True:
 			text = prompt('$ git ', completer=cli_completer,
 						  style=cli_style,complete_while_typing=True,
-						  mouse_support=True,history=our_history,
+						  mouse_support=True,history=git_history,
 						  on_abort=AbortAction.RETRY)
-			os.system("git " + text)
+			if text=='q':
+				while True:
+					text=prompt('$ ',style=cli_style)
+					if text=='git':
+						break
+					os.system(text)
+			else:
+				os.system("git " + text)
 	except EOFError:
 		print('exit')
 		
