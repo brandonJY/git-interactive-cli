@@ -28,10 +28,6 @@ def main():
 	try:
 		while True:
 	
-			currentBranchName=subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True)
-			currentPath=subprocess.check_output('pwd')
-			print(currentPath.replace('\n','')+' ('+currentBranchName.replace('\n','')+')')
-	
 			text = prompt('$ git ', completer=cli_completer,
 						  style=cli_style,complete_while_typing=True,
 						  mouse_support=True,history=git_history,
@@ -43,6 +39,9 @@ def main():
 						break
 					os.system(text)
 			elif text=='':
+				currentBranchName=subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True)
+				currentPath=subprocess.check_output('pwd')
+				print(currentPath.replace('\n','')+' ('+currentBranchName.replace('\n','')+')')
 				continue
 			else:
 				status=subprocess.call("git " + text, shell=True)
