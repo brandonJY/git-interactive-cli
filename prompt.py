@@ -9,6 +9,7 @@ from prompt_toolkit.history import FileHistory
 
 import subprocess
 from os.path import expanduser
+import json
 
 cli_style = style_from_dict({
     Token.Comment:   '#888888 italic',
@@ -16,29 +17,9 @@ cli_style = style_from_dict({
 	Token: '#ff0066'
 })
 
-cli_completer = WordCompleter([
-    'revert commitid -m [parent number:0,1]',
-    'remote -v',
-    'remote add branchname repopath',
-    'remote set-url branchname repopath',
-    'format-patch commit-id --stdout >file.patch',
-    'status',
-    'stash save -p message',
-    'checkout -p commitid',
-    'checkout branchname filepath',
-    'checkout branchname',
-    'commit --amend',
-    'rebase -i HEAD~4',
-    'rebase -i --root',
-    'cherry-pick commitid',
-    "filter-branch --env-filter 'GIT_COMMITTER_DATE=$GIT_AUTHOR_DATE; export GIT_COMMITTER_DATE",
-    "log --graph --abbrev-commit --decorate --format=format:'%C(blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset) %C(bold green)%ar%C(reset)'"
-], meta_dict={
-	'checkout branchname':'switch branch',
-    'remote -v': 'check remote url',
-    'rebase -i HEAD~4': 'interative last 4',
-    'remote set-url branchname repopath':'remote set-url origin https://github.com/REPOSITORY.git'
-},ignore_case=True)
+with open('git_command.json', 'r') as f:
+	git_command=json.load(f)
+cli_completer = WordCompleter(git_command.keys(), meta_dict=git_command,ignore_case=True)
 
 
 def main():
