@@ -28,7 +28,7 @@ def main():
 	try:
 		while True:
 	
-			currentBranchName=subprocess.check_output('git name-rev --name-only HEAD', shell=True)
+			currentBranchName=subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True)
 			currentPath=subprocess.check_output('pwd')
 			print(currentPath.replace('\n','')+' ('+currentBranchName.replace('\n','')+')')
 	
