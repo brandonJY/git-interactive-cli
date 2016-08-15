@@ -8,6 +8,8 @@ from prompt_toolkit.token import Token
 from prompt_toolkit.history import FileHistory
 
 import subprocess
+import os
+import sys
 from os.path import expanduser
 import json
 
@@ -17,7 +19,8 @@ cli_style = style_from_dict({
 	Token: '#ff0066'
 })
 
-with open('git_command.json', 'r') as f:
+scriptDir=os.path.dirname(os.path.abspath(sys.argv[0]))
+with open(os.path.join(scriptDir,'git_command.json'), 'r') as f:
 	git_command=json.load(f)
 cli_completer = WordCompleter(git_command.keys(), meta_dict=git_command,ignore_case=True)
 
@@ -37,10 +40,10 @@ def main():
 					text=prompt('$ ',style=cli_style)
 					if text=='git':
 						break
-					os.system(text)
+					status=subprocess.call(text, shell=True)
 			elif text=='':
 				currentBranchName=subprocess.check_output('git rev-parse --abbrev-ref HEAD', shell=True)
-				currentPath=subprocess.check_output('pwd')
+				currentPath=os.getcwd()				
 				print(currentPath.replace('\n','')+' ('+currentBranchName.replace('\n','')+')')
 				continue
 			else:
