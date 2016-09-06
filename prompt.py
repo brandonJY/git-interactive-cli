@@ -22,7 +22,7 @@ cli_style = style_from_dict({
 scriptDir=os.path.dirname(os.path.abspath(sys.argv[0]))
 with open(os.path.join(scriptDir,'git_command.json'), 'r') as f:
 	git_command=json.load(f)
-cli_completer = WordCompleter(git_command.keys(), meta_dict=git_command,ignore_case=True)
+cli_completer = WordCompleter(git_command.keys(),meta_dict=git_command,ignore_case=True,sentence=True)
 
 
 def main():
