@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
 
 from prompt_toolkit.contrib.completers import WordCompleter
+from util.GitCompleter import GitCompleter
+
 from prompt_toolkit import prompt
 from prompt_toolkit.interface import AbortAction
 from prompt_toolkit.styles import style_from_dict
@@ -22,7 +24,7 @@ cli_style = style_from_dict({
 scriptDir=os.path.dirname(os.path.abspath(sys.argv[0]))
 with open(os.path.join(scriptDir,'git_command.json'), 'r') as f:
 	git_command=json.load(f)
-cli_completer = WordCompleter(git_command.keys(),meta_dict=git_command,ignore_case=True,sentence=True)
+cli_completer = GitCompleter(git_command.keys(),meta_dict=git_command,ignore_case=True,sentence=True)
 
 
 def main():
